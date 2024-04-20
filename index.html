@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Santodo</title>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        
+        <style>
+         td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+tr:hover {
+    background-color: #878787;
+}
+        </style>
+    </head>
+    <body>
+      prios: 0-nicht vergeben, 1-bei gelegenheit, 2-dieses quartal 3-diesen Monat 4-diese Woche 5-zwei tage<br>
+        <input type="text" onchange="add_todo(this.value)">
+        <button onclick="writeToFirebase()">Write to Firebase</button>
+        <button onclick="read_todos()">Read from Firebase</button>
+        <button onclick="call_redo_list()">make list</button>
+        <button onclick="sel_elm=dataset[0];disp_orgchart(dataset[0],dataset)">draw org</button>
+        <input type="number" min=0 max =5 value=1 onchange="sel_min_prio = this.value; call_redo_list()">
+        <button onclick="ou = find_oneup(selected_elm,dataset);nachkommen = show_decendents(ou,dataset); redo_list(nachkommen)">oneup</button>
+        <div id="todoliste" style="overflow: scroll;height:90%"></div>
+        <div id="main" ></div>
+    </body>
+<script>
+</script>
+</html>
