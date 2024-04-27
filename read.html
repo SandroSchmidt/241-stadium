@@ -6,43 +6,16 @@
         <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <style>
-table {
-  border-collapse: collapse;
-}
 
-th, td {
-  border: 1px solid #000;
-  padding: 0px;
-  text-align: center;
-}
-
-th {padding: 3px;}
-  /* CSS styles for the div */
-  .one-third-div {
-      width: 33.33%; /* One-third of the screen width */
-      height: 100vh; /* Full height of the viewport */
-      background-color: lightgray;
-      float: left; /* Optional: Allows other elements to float alongside */
-    }
         </style>
     </head>
     <body>
-<div id="link_div" style="height: 100vh;width: 30%;float: left;" ></div>
-<div id="mitte_div" style="height: 100vh;width: 40%;float: left;">
-<div id="mitte_oben_div">
-<svg id="pie1" style="width:45%"></svg>
-<svg id="pie2" style="width:45%"></svg>
-</div>
-    <div id="mitte_unten_div" style="   display: flex;
-    justify-content: center; "><svg id="dreckssvg">
 
-    </svg>
-</div>
-</div>
-<div id="rechts_div" style="height: 100vh;width: 30%;float: left;"></div>
       
        <!--         <img src="./plan.png" alt="" style="width: 70%; align-self: center;">
-           -->     
+           -->     <svg id="dreckssvg">
+
+                </svg>
            
 
         
@@ -99,11 +72,6 @@ for(i=0;i<felder.length;i++){
 svg.append('rect').attr('id','feld'+i).attr("x",felder[i][0]*size*1.1).attr("width",size).attr("y",felder[i][1]*size*1.1).attr("height",size).style('fill',"red").style('stroke',"black")
 }
 
-// Get the query parameters from the URL
-const queryParams = new URLSearchParams(window.location.search);
-
-// Retrieve the value of the 'varName' parameter
-const auth = queryParams.get('auth');
 
 function recolor_svg(){
 for(i=0;i<dataset.length;i++){
@@ -115,93 +83,9 @@ d3.select('#feld'+i).style('fill',col)
 }}
 
 
-function draw_pie(){
-    radius = 100
-    d3.select('#pie1').style('height',2*radius+"px")
-    
-    svg2= d3.select('#pie1').append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
-
-    d3.select('#pie2').style('height',2*radius+"px")
-    
-    svg3= d3.select('#pie2').append("g")
-    .attr("transform", "translate(" + radius + "," + radius + ")");
-
-    var pie_data = [
-    { label: "PREM", sold: 0,cap:0 ,col:"#DAF7A6"},
-    { label: "CAT 1", sold:0,cap:0,col:"#FFC300" },
-    { label: "CAT 2", sold:0,cap:0,col:"#FF5733" },
-    { label: "CAT 3", sold:0,cap:0,col:"#C70039" },
-    { label: "CAT 4", sold:0,cap:0,col:"#900C3F" },
-    { label: "CATAN", sold:0,cap:0,col:" #581845" }
-      
-];
-
-    for(i=0;i<dataset.length;i++){
-      pie_data[dataset[i].cat].sold += parseInt(dataset[i].sold)
-      pie_data[dataset[i].cat].cap+= parseInt(dataset[i].cap)
-    }
-  
-
-    var pie_sold = d3.pie()
-    .value(function(d) { return d.sold; });
-
-    var pie_cap = d3.pie()
-    .value(function(d) { return d.cap; });
-
-  // Create an arc generator
-  var arc = d3.arc()
-    .innerRadius(radius/3)
-    .outerRadius(radius);
-
-  // Generate the pie chart
-  var arcs = svg2.selectAll("arc")
-    .data(pie_sold(pie_data))
-    .enter()
-    .append("g")
-    .attr("class", "arc");
-
-  // Add the actual pie slices
-  arcs.append("path")
-    .attr("d", arc)
-    .attr("fill", function(d) { return d.data.col; });
-
-  // Add labels
-  arcs.append("text")
-    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-    .attr("text-anchor", "middle")
-    .text(function(d) { return d.data.label; });
-
-    //-----------------------------------------------------------------
-      // Generate the pie chart
-  var arcs = svg3.selectAll("arc")
-    .data(pie_cap(pie_data))
-    .enter()
-    .append("g")
-    .attr("class", "arc");
-
-  // Add the actual pie slices
-  arcs.append("path")
-    .attr("d", arc)
-    .attr("fill", function(d) { return d.data.col; });
-
-  // Add labels
-  arcs.append("text")
-    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-    .attr("text-anchor", "middle")
-    .text(function(d) { return d.data.label; });
-}
-
-
-
-
-
-
-
 function recolor(data){
     recolor_svg()
-    draw_pie()
-    tabe = d3.select('#link_div').append('table')
+    tabe = d3.select('body').append('table')
    // database.ref('Stages').set(data);
     tro=  tabe.append('tr')
     tro.append('th').text("Block")
@@ -215,20 +99,14 @@ function recolor(data){
         tro = tabe.append('tr')
         tro.append('td').text(data[zi].short)
         tro.append('td').text(data[zi].cap)
-        if(auth=='full')
-  {      tro.append('td').append("input")
+        tro.append('td').append("input")
             .attr("type","number").attr("max",data[zi].cap)
-            .style('width','100px')
-            .on('change',function(){tabe.remove();data[zi].sold = parseInt(this.value);writeToFirebase()})
+            .on('change',function(){tabe.remove();data[zi].sold = this.value;recolor(data)})
             .attr("value",data[zi].sold)
             
         tro.append('td').append("input").attr("type","number").attr("max",5).attr('min',0)
-        .style('width','100px')
-            .on('change',function(){tabe.remove();data[zi].cat = parseInt(this.value);writeToFirebase()})
-            .attr("value",data[zi].cat)}else{  
-                    tro.append('td').text(data[zi].sold)
-            
-        tro.append('td').text(data[zi].cat)}
+   //         .on('change',function(){tabe.remove();data[zi].cat = this.value;recolor(data)})
+            .attr("value",data[zi].cat)
         tro.append('td').text(Math.round(100*(data[zi].sold/data[zi].cap)) + " %")
     }
 }
