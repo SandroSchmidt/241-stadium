@@ -20,7 +20,7 @@ th {padding: 3px;}
   /* CSS styles for the div */
   .one-third-div {
       width: 33.33%; /* One-third of the screen width */
-      height: 100vh; /* Full height of the viewport */
+      height: 95vh; /* Full height of the viewport */
       background-color: lightgray;
       float: left; /* Optional: Allows other elements to float alongside */
     }
@@ -36,8 +36,8 @@ fill:skyblue
         </style>
     </head>
     <body>
-<div id="link_div" style="height: 100vh;width: 30%;float: left;" ></div>
-<div id="mitte_div" style="height: 100vh;width: 40%;float: left;">
+<div id="link_div" style="height: 95vh;width: 30%;float: left;" ></div>
+<div id="mitte_div" style="height: 95vh;width: 40%;float: left;">
 <div id="mitte_oben_div">
 <svg id="pie1" style="width:45%"></svg>
 <svg id="pie2" style="width:45%"></svg>
@@ -49,9 +49,9 @@ fill:skyblue
     </svg>
 </div>
 </div>
-<div id="rechts_div" style="height: 100vh;width: 30%;float: left;">
+<div id="rechts_div" style="height: 95vh;width: 30%;float: left;">
 <svg id="bar1" style="width:95%"></svg>
-
+<svg id="bar2" style="width:95%"></svg>
 </div>
       
        <!--         <img src="./plan.png" alt="" style="width: 70%; align-self: center;">
@@ -89,37 +89,51 @@ fill:skyblue
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 read_stages()
+
+blocks = [
+    {short:"WL",long:"West Lower",sold:0,cap:0},
+    {short:"WV",long:"West View",sold:0,cap:0},
+    {short:"ELN",long:"East Lower North",sold:0,cap:0},
+    {short:"ELS",long:"East Lower South",sold:0,cap:0},
+    {short:"EU",long:"East Upper",sold:0,cap:0},
+    {short:"SL",long:"Shed Lower",sold:0,cap:0},
+    {short:"SU",long:"Shed Upper",sold:0,cap:0},
+    {short:"MHL",long:"M Harding Lower",sold:0,cap:0},
+    {short:"MHU",long:"M Harding Upper",sold:0,cap:0},
+
+]
+
 //whatisthis = getDatabase()
 //setTimeout(function(){},2000)
-  /*
+ /*
 dataset=[
-{short:"SU1",sold:12,cap:44,cat:3,pos:[0,1]},
-{short:"SU2",sold:12,cap:44,cat:3,pos:[0,2]},
-{short:"SU3",sold:12,cap:444,cat:3,pos:[0,3]},
-{short:"SU4",sold:991,cap:434,cat:3,pos:[0,4]},
-{short:"SU5",sold:122,cap:244,cat:1,pos:[0,5]},
-{short:"SH1",sold:125,cap:474,cat:1,pos:[1,1]},
-{short:"SH2",sold:182,cap:449,cat:1,pos:[1,2]},
-{short:"SH3",sold:125,cap:644,cat:2,pos:[1,3]},
-{short:"SH4",sold:172,cap:441,cat:2,pos:[1,4]},
-{short:"SH5",sold:172,cap:441,cat:2,pos:[1,5]},
-{short:"LU1",sold:172,cap:441,cat:2,pos:[6,0]},
-{short:"LU2",sold:172,cap:441,cat:2,pos:[2,0]},
-{short:"LU3",sold:172,cap:441,cat:2,pos:[3,0]},
-{short:"LU4",sold:172,cap:441,cat:2,pos:[4,0]},
-{short:"LU5",sold:172,cap:441,cat:2,pos:[5,0]},
-{short:"OK1",sold:172,cap:441,cat:2,pos:[6,6]},
-{short:"OK2",sold:172,cap:441,cat:2,pos:[2,6]},
-{short:"OK3",sold:172,cap:441,cat:2,pos:[3,6]},
-{short:"OK4",sold:172,cap:441,cat:2,pos:[4,6]},
-{short:"OK5",sold:172,cap:441,cat:2,pos:[5,6]},
-{short:"MM1",sold:172,cap:441,cat:2,pos:[7,1]},
-{short:"MM2",sold:172,cap:441,cat:2,pos:[7,2]},
-{short:"MM3",sold:172,cap:441,cat:2,pos:[7,3]},
-{short:"MM4",sold:172,cap:441,cat:2,pos:[7,4]},
-{short:"MM5",sold:172,cap:441,cat:2,pos:[7,5]},
-{short:"SH4",sold:172,cap:441,cat:2,pos:[8,3]},
-{short:"SH4",sold:172,cap:441,cat:2,pos:[8,4]},
+{block:1,short:"SU1",sold:12,cap:44,cat:3,pos:[0,1]},
+{block:1,short:"SU2",sold:12,cap:44,cat:3,pos:[0,2]},
+{block:1,short:"SU3",sold:12,cap:444,cat:3,pos:[0,3]},
+{block:1,short:"SU4",sold:991,cap:434,cat:3,pos:[0,4]},
+{block:1,short:"SU5",sold:122,cap:244,cat:1,pos:[0,5]},
+{block:2,short:"SH1",sold:125,cap:474,cat:1,pos:[1,1]},
+{block:2,short:"SH2",sold:182,cap:449,cat:1,pos:[1,2]},
+{block:2,short:"SH3",sold:125,cap:644,cat:2,pos:[1,3]},
+{block:2,short:"SH4",sold:172,cap:441,cat:2,pos:[1,4]},
+{block:2,short:"SH5",sold:172,cap:441,cat:2,pos:[1,5]},
+{block:3,short:"LU1",sold:172,cap:441,cat:2,pos:[6,0]},
+{block:3,short:"LU2",sold:172,cap:441,cat:2,pos:[2,0]},
+{block:3,short:"LU3",sold:172,cap:441,cat:2,pos:[3,0]},
+{block:3,short:"LU4",sold:172,cap:141,cat:2,pos:[4,0]},
+{block:3,short:"LU5",sold:172,cap:241,cat:2,pos:[5,0]},
+{block:4,short:"OK1",sold:172,cap:341,cat:2,pos:[6,6]},
+{block:4,short:"OK2",sold:172,cap:441,cat:2,pos:[2,6]},
+{block:4,short:"OK3",sold:172,cap:541,cat:2,pos:[3,6]},
+{block:4,short:"OK4",sold:172,cap:461,cat:2,pos:[4,6]},
+{block:4,short:"OK5",sold:112,cap:431,cat:2,pos:[5,6]},
+{block:5,short:"MM1",sold:122,cap:421,cat:2,pos:[7,1]},
+{block:5,short:"MM2",sold:132,cap:41,cat:2,pos:[7,2]},
+{block:5,short:"MM3",sold:142,cap:431,cat:2,pos:[7,3]},
+{block:5,short:"MM4",sold:152,cap:1,cat:2,pos:[7,4]},
+{block:5,short:"MM5",sold:372,cap:41,cat:2,pos:[7,5]},
+{block:6,short:"SH4",sold:272,cap:91,cat:2,pos:[8,3]},
+{block:6,short:"SH4",sold:572,cap:491,cat:2,pos:[8,4]},
 ]
 setTimeout(function(){writeToFirebase()},2000)
 */
@@ -142,7 +156,7 @@ var bbox = svg.node().getBBox();
 }}
 setTimeout(function(){draw_field()
    
-
+    recolor_svg()
 },1000)
 // Get the query parameters from the URL
 const queryParams = new URLSearchParams(window.location.search);
@@ -173,7 +187,7 @@ bar_data.push(
 )
 }
 
-console.log(bar_data)
+
   // Set up SVG dimensions
   var margin = { top: 20, right: 30, bottom: 30, left: 40 };
   var width = 400 - margin.left - margin.right;
@@ -228,6 +242,77 @@ console.log(bar_data)
   // Add y-axis
   svg.append("g")
     .call(d3.axisLeft(y));
+
+/////__________________________________ 2er barchart
+
+bar_data =[]
+
+for (i=0;i<dataset.length;i++){
+blocks[dataset[i].block].sold += dataset[i].sold
+blocks[dataset[i].block].cap += dataset[i].cap
+}
+
+
+
+for(i=0;i<blocks.length;i++) {
+bar_data.push(
+  { category: blocks[i].short,values:{"sold":blocks[i].sold,"unsold":blocks[i].cap-blocks[i].sold}}
+)
+}
+
+console.log(bar_data)
+// Create SVG container
+d3.select('#bar2').selectAll('*').remove()
+  svg = d3.select('#bar2')
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // Stack data
+  var stack = d3.stack()
+    .keys(["sold", "unsold"])
+    .order(d3.stackOrderNone)
+    .offset(d3.stackOffsetNone);
+
+  var series = stack(bar_data.map(d => d.values));
+
+  // Create scales
+  var x = d3.scaleBand()
+    .domain(bar_data.map(d => d.category))
+    .range([0, width])
+    .padding(0.1);
+
+  var y = d3.scaleLinear()
+    .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
+    .nice()
+    .range([height, 0]);
+
+  // Generate bars
+  svg.selectAll(".series")
+    .data(series)
+    .enter().append("g")
+    .attr("class", "series")
+    .attr("fill", (d, i) => d3.schemeCategory10[i])
+    .selectAll("rect")
+    .data(d => d)
+    .enter().append("rect")
+    .attr("x", (d, i) => x(bar_data[i].category))
+    .attr("y", d => y(d[1]))
+    .attr("height", d => y(d[0]) - y(d[1]))
+    .attr("width", x.bandwidth());
+
+  // Add x-axis
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+  // Add y-axis
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+
+
 }
 function draw_pie(){
     radius = 100
@@ -251,7 +336,7 @@ function draw_pie(){
     { label: "CAT 2", sold:0,cap:0,col:"#FF5733" },
     { label: "CAT 3", sold:0,cap:0,col:"#C70039" },
     { label: "CAT 4", sold:0,cap:0,col:"#900C3F" },
-    { label: "CATAN", sold:0,cap:0,col:" #581845" }
+    { label: "CAT X", sold:0,cap:0,col:" #581845" }
       
 ];
 
@@ -326,6 +411,7 @@ function recolor(data){
    // database.ref('Stages').set(data);
     tro=  tabe.append('tr')
     tro.append('th').text("Block")
+    tro.append('th').text("Group")
     tro.append('th').text("capacity")
     tro.append('th').text("sold")
        tro.append('th').text("category")
@@ -335,6 +421,7 @@ function recolor(data){
         let zi= i
         tro = tabe.append('tr')
         tro.append('td').text(data[zi].short)
+        tro.append('td').text(data[zi].block)
         tro.append('td').text(data[zi].cap)
         if(auth=='full')
   {      tro.append('td').append("input")
