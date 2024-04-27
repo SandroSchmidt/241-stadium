@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Stadium</title>
         <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
         <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -24,6 +24,15 @@ th {padding: 3px;}
       background-color: lightgray;
       float: left; /* Optional: Allows other elements to float alongside */
     }
+
+    .arc:hover {
+  fill: orange; /* Change fill color on hover */
+  font-weight: 300;
+}
+
+.feld:hover {
+fill:skyblue
+}
         </style>
     </head>
     <body>
@@ -33,13 +42,17 @@ th {padding: 3px;}
 <svg id="pie1" style="width:45%"></svg>
 <svg id="pie2" style="width:45%"></svg>
 </div>
+<br><br>
     <div id="mitte_unten_div" style="   display: flex;
     justify-content: center; "><svg id="dreckssvg">
 
     </svg>
 </div>
 </div>
-<div id="rechts_div" style="height: 100vh;width: 30%;float: left;"></div>
+<div id="rechts_div" style="height: 100vh;width: 30%;float: left;">
+<svg id="bar1" style="width:95%"></svg>
+
+</div>
       
        <!--         <img src="./plan.png" alt="" style="width: 70%; align-self: center;">
            -->     
@@ -78,27 +91,59 @@ const database = firebase.database();
 read_stages()
 //whatisthis = getDatabase()
 //setTimeout(function(){},2000)
-/*  
-dataset=[{short:"SU1",sold:12,cap:44,cat:3},
-{short:"SU2",sold:12,cap:44,cat:3},
-{short:"SU3",sold:12,cap:444,cat:3},
-{short:"SU4",sold:991,cap:434,cat:3},
-{short:"SU5",sold:122,cap:244,cat:1},
-{short:"SH1",sold:125,cap:474,cat:1},
-{short:"SH2",sold:182,cap:449,cat:1},
-{short:"SH3",sold:125,cap:644,cat:2},
-{short:"SH4",sold:172,cap:441,cat:2},
+  /*
+dataset=[
+{short:"SU1",sold:12,cap:44,cat:3,pos:[0,1]},
+{short:"SU2",sold:12,cap:44,cat:3,pos:[0,2]},
+{short:"SU3",sold:12,cap:444,cat:3,pos:[0,3]},
+{short:"SU4",sold:991,cap:434,cat:3,pos:[0,4]},
+{short:"SU5",sold:122,cap:244,cat:1,pos:[0,5]},
+{short:"SH1",sold:125,cap:474,cat:1,pos:[1,1]},
+{short:"SH2",sold:182,cap:449,cat:1,pos:[1,2]},
+{short:"SH3",sold:125,cap:644,cat:2,pos:[1,3]},
+{short:"SH4",sold:172,cap:441,cat:2,pos:[1,4]},
+{short:"SH5",sold:172,cap:441,cat:2,pos:[1,5]},
+{short:"LU1",sold:172,cap:441,cat:2,pos:[6,0]},
+{short:"LU2",sold:172,cap:441,cat:2,pos:[2,0]},
+{short:"LU3",sold:172,cap:441,cat:2,pos:[3,0]},
+{short:"LU4",sold:172,cap:441,cat:2,pos:[4,0]},
+{short:"LU5",sold:172,cap:441,cat:2,pos:[5,0]},
+{short:"OK1",sold:172,cap:441,cat:2,pos:[6,6]},
+{short:"OK2",sold:172,cap:441,cat:2,pos:[2,6]},
+{short:"OK3",sold:172,cap:441,cat:2,pos:[3,6]},
+{short:"OK4",sold:172,cap:441,cat:2,pos:[4,6]},
+{short:"OK5",sold:172,cap:441,cat:2,pos:[5,6]},
+{short:"MM1",sold:172,cap:441,cat:2,pos:[7,1]},
+{short:"MM2",sold:172,cap:441,cat:2,pos:[7,2]},
+{short:"MM3",sold:172,cap:441,cat:2,pos:[7,3]},
+{short:"MM4",sold:172,cap:441,cat:2,pos:[7,4]},
+{short:"MM5",sold:172,cap:441,cat:2,pos:[7,5]},
+{short:"SH4",sold:172,cap:441,cat:2,pos:[8,3]},
+{short:"SH4",sold:172,cap:441,cat:2,pos:[8,4]},
 ]
+setTimeout(function(){writeToFirebase()},2000)
 */
-felder=[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,1],[0,2],[0,3],[0,4],[0,5],[5,1],[5,2],[5,3],[5,4],[5,5],[1,5],[2,5],[3,5],[4,5]]
-svg = d3.select('#dreckssvg')
+//felder=[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,1],[0,2],[0,3],[0,4],[0,5],[5,1],[5,2],[5,3],[5,4],[5,5],[1,5],[2,5],[3,5],[4,5]]
+function draw_field()
+{svg = d3.select('#dreckssvg')
 u= 10
 o=10
-size=20
-for(i=0;i<felder.length;i++){
-svg.append('rect').attr('id','feld'+i).attr("x",felder[i][0]*size*1.1).attr("width",size).attr("y",felder[i][1]*size*1.1).attr("height",size).style('fill',"red").style('stroke',"black")
-}
+size=30
+for(i=0;i<dataset.length;i++){
+//svg.append('rect').attr('id','feld'+i).attr("x",felder[i][0]*size*1.1).attr("width",size).attr("y",felder[i][1]*size*1.1).attr("height",size).style('fill',"red").style('stroke',"black")
+svg.append('rect').attr('class','feld').attr('id','feld'+i).attr("x",dataset[i].pos[0]*size*1.1+2).attr("width",size)
+.attr("y",2+dataset[i].pos[1]*size*1.1).attr("height",size).style('fill',"red").style('stroke',"black")
 
+.append('title').text(dataset[i].short + "  sold: " + dataset[i].sold)
+
+var bbox = svg.node().getBBox();
+  svg.attr("width", bbox.width+5)
+     .attr("height", bbox.height+5);
+}}
+setTimeout(function(){draw_field()
+   
+
+},1000)
 // Get the query parameters from the URL
 const queryParams = new URLSearchParams(window.location.search);
 
@@ -106,6 +151,9 @@ const queryParams = new URLSearchParams(window.location.search);
 const auth = queryParams.get('auth');
 
 function recolor_svg(){
+
+
+
 for(i=0;i<dataset.length;i++){
     col = "red"
     if(dataset[i].sold/dataset[i].cap > 0.3) {col = "yellow"}
@@ -114,20 +162,90 @@ for(i=0;i<dataset.length;i++){
 d3.select('#feld'+i).style('fill',col)
 }}
 
+function draw_barchart(){
+ 
 
+bar_data = []
+
+for (i=0;i<pie_data.length;i++){
+bar_data.push(
+  { category: pie_data[i].label,values:{"sold":pie_data[i].sold,"unsold":pie_data[i].cap-pie_data[i].sold}}
+)
+}
+
+console.log(bar_data)
+  // Set up SVG dimensions
+  var margin = { top: 20, right: 30, bottom: 30, left: 40 };
+  var width = 400 - margin.left - margin.right;
+  var height = 400 - margin.top - margin.bottom;
+
+  // Create SVG container
+  d3.select('#bar1').selectAll('*').remove()
+  svg = d3.select('#bar1')
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // Stack data
+  var stack = d3.stack()
+    .keys(["sold", "unsold"])
+    .order(d3.stackOrderNone)
+    .offset(d3.stackOffsetNone);
+
+  var series = stack(bar_data.map(d => d.values));
+
+  // Create scales
+  var x = d3.scaleBand()
+    .domain(bar_data.map(d => d.category))
+    .range([0, width])
+    .padding(0.1);
+
+  var y = d3.scaleLinear()
+    .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
+    .nice()
+    .range([height, 0]);
+
+  // Generate bars
+  svg.selectAll(".series")
+    .data(series)
+    .enter().append("g")
+    .attr("class", "series")
+    .attr("fill", (d, i) => d3.schemeCategory10[i])
+    .selectAll("rect")
+    .data(d => d)
+    .enter().append("rect")
+    .attr("x", (d, i) => x(bar_data[i].category))
+    .attr("y", d => y(d[1]))
+    .attr("height", d => y(d[0]) - y(d[1]))
+    .attr("width", x.bandwidth());
+
+  // Add x-axis
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+  // Add y-axis
+  svg.append("g")
+    .call(d3.axisLeft(y));
+}
 function draw_pie(){
     radius = 100
     d3.select('#pie1').style('height',2*radius+"px")
     
-    svg2= d3.select('#pie1').append("g")
+    svg2= d3.select('#pie1')
+   svg2.selectAll('*').remove()
+    svg2=svg2.append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
     d3.select('#pie2').style('height',2*radius+"px")
     
-    svg3= d3.select('#pie2').append("g")
+    svg3= d3.select('#pie2')
+    svg3.selectAll('*').remove()
+    svg3 = svg3.append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
-    var pie_data = [
+    pie_data = [
     { label: "PREM", sold: 0,cap:0 ,col:"#DAF7A6"},
     { label: "CAT 1", sold:0,cap:0,col:"#FFC300" },
     { label: "CAT 2", sold:0,cap:0,col:"#FF5733" },
@@ -163,6 +281,7 @@ function draw_pie(){
 
   // Add the actual pie slices
   arcs.append("path")
+  
     .attr("d", arc)
     .attr("fill", function(d) { return d.data.col; });
 
@@ -201,6 +320,8 @@ function draw_pie(){
 function recolor(data){
     recolor_svg()
     draw_pie()
+    draw_barchart()
+    
     tabe = d3.select('#link_div').append('table')
    // database.ref('Stages').set(data);
     tro=  tabe.append('tr')
