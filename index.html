@@ -16,42 +16,39 @@ th, td {
   text-align: center;
 }
 
-th {padding: 3px;}
-  /* CSS styles for the div */
-  .one-third-div {
-      width: 33.33%; /* One-third of the screen width */
-      height: 95vh; /* Full height of the viewport */
-      background-color: lightgray;
-      float: left; /* Optional: Allows other elements to float alongside */
-    }
+th {padding: 3px;background-color: steelblue;}
 
-    .arc:hover {
-  fill: orange; /* Change fill color on hover */
-  font-weight: 300;
-}
-
-.feld:hover {
-fill:skyblue
-}
         </style>
     </head>
     <body>
-<div id="link_div" style="height: 95vh;width: 30%;float: left;" ></div>
-<div id="mitte_div" style="height: 95vh;width: 40%;float: left;">
-<div id="mitte_oben_div">
-<svg id="pie1" style="width:45%"></svg>
-<svg id="pie2" style="width:45%"></svg>
+<div id="link_div" style="height: 96vh;width: 30%;float: left;overflow: auto;" ></div>
+<div id="mitte_div" style="height: 96vh;width: 40%;float: left;">
+<div id="mitte_oben_div"><br>
+    <div style="width:50%;float: left;display: flex;justify-content: center; " ><svg id="pie1" ></svg></div>
+    <div style="width:50%;float: left;display: flex;justify-content: center;"><svg id="pie2" ></svg>
+        
+    </div>
+    
 </div>
-<br><br>
-    <div id="mitte_unten_div" style="   display: flex;
-    justify-content: center; "><svg id="dreckssvg">
+<p style="color: white;font-size: small;">s</p>
+    <div id="mitte_mitte_div" style="display: flex;justify-content: center;   align-items: center;width: 100%;">
+            
+        <svg id="dreckssvg">    </svg>
+    </div>
 
-    </svg>
+    <div id="mitte_unten_div">
+
 </div>
+
 </div>
-<div id="rechts_div" style="height: 95vh;width: 30%;float: left;">
-<svg id="bar1" style="width:95%"></svg>
-<svg id="bar2" style="width:95%"></svg>
+<div id="rechts_div" style="height: 96vh;width: 30%;float: left;">
+    <div id="rechts_oben_div" style="height:10vh;overflow:hidden;">
+    <img src="./logo.png" style="width: 90%;float:right">
+</div>
+    <div id="rechts_unten_div" style="height:86vh;overflow: hidden;">
+<svg id="bar1" style="width:100%"></svg>
+<svg id="bar2" style="width:100%"></svg>
+</div>
 </div>
       
        <!--         <img src="./plan.png" alt="" style="width: 70%; align-self: center;">
@@ -88,7 +85,7 @@ fill:skyblue
 
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-read_stages()
+
 
 blocks = [
     {short:"WL",long:"West Lower",sold:0,cap:0},
@@ -105,35 +102,82 @@ blocks = [
 
 //whatisthis = getDatabase()
 //setTimeout(function(){},2000)
- /*
+  read_stages()
+
+  /*
 dataset=[
-{block:1,short:"SU1",sold:12,cap:44,cat:3,pos:[0,1]},
-{block:1,short:"SU2",sold:12,cap:44,cat:3,pos:[0,2]},
-{block:1,short:"SU3",sold:12,cap:444,cat:3,pos:[0,3]},
-{block:1,short:"SU4",sold:991,cap:434,cat:3,pos:[0,4]},
-{block:1,short:"SU5",sold:122,cap:244,cat:1,pos:[0,5]},
-{block:2,short:"SH1",sold:125,cap:474,cat:1,pos:[1,1]},
-{block:2,short:"SH2",sold:182,cap:449,cat:1,pos:[1,2]},
-{block:2,short:"SH3",sold:125,cap:644,cat:2,pos:[1,3]},
-{block:2,short:"SH4",sold:172,cap:441,cat:2,pos:[1,4]},
-{block:2,short:"SH5",sold:172,cap:441,cat:2,pos:[1,5]},
-{block:3,short:"LU1",sold:172,cap:441,cat:2,pos:[6,0]},
-{block:3,short:"LU2",sold:172,cap:441,cat:2,pos:[2,0]},
-{block:3,short:"LU3",sold:172,cap:441,cat:2,pos:[3,0]},
-{block:3,short:"LU4",sold:172,cap:141,cat:2,pos:[4,0]},
-{block:3,short:"LU5",sold:172,cap:241,cat:2,pos:[5,0]},
-{block:4,short:"OK1",sold:172,cap:341,cat:2,pos:[6,6]},
-{block:4,short:"OK2",sold:172,cap:441,cat:2,pos:[2,6]},
-{block:4,short:"OK3",sold:172,cap:541,cat:2,pos:[3,6]},
-{block:4,short:"OK4",sold:172,cap:461,cat:2,pos:[4,6]},
-{block:4,short:"OK5",sold:112,cap:431,cat:2,pos:[5,6]},
-{block:5,short:"MM1",sold:122,cap:421,cat:2,pos:[7,1]},
-{block:5,short:"MM2",sold:132,cap:41,cat:2,pos:[7,2]},
-{block:5,short:"MM3",sold:142,cap:431,cat:2,pos:[7,3]},
-{block:5,short:"MM4",sold:152,cap:1,cat:2,pos:[7,4]},
-{block:5,short:"MM5",sold:372,cap:41,cat:2,pos:[7,5]},
-{block:6,short:"SH4",sold:272,cap:91,cat:2,pos:[8,3]},
-{block:6,short:"SH4",sold:572,cap:491,cat:2,pos:[8,4]},
+{block:1,short:"WU1",sold:12,cap:759,cat:3,pos:[2,0]},
+{block:1,short:"WU2",sold:12,cap:879,cat:3,pos:[3,0]},
+{block:1,short:"WU3",sold:12,cap:881,cat:3,pos:[4,0]},
+{block:1,short:"WU4",sold:12,cap:879,cat:3,pos:[5,0]},
+{block:1,short:"WU5",sold:12,cap:879,cat:3,pos:[6,0]},
+{block:1,short:"WU6",sold:12,cap:879,cat:3,pos:[7,0]},
+{block:1,short:"WU7",sold:12,cap:880,cat:3,pos:[8,0]},
+{block:1,short:"WU8",sold:12,cap:761,cat:3,pos:[9,0]},
+{block:0,short:"WV1",sold:12,cap:478,cat:3,pos:[2,1]},
+{block:0,short:"WV2",sold:12,cap:568,cat:3,pos:[3,1]},
+{block:0,short:"WV3",sold:12,cap:555,cat:3,pos:[4,1]},
+{block:0,short:"WV4",sold:12,cap:578,cat:3,pos:[5,1]},
+{block:0,short:"WV5",sold:12,cap:578,cat:3,pos:[6,1]},
+{block:0,short:"WV6",sold:12,cap:578,cat:3,pos:[7,1]},
+{block:0,short:"WV7",sold:12,cap:662,cat:3,pos:[8,1]},
+{block:0,short:"WV8",sold:12,cap:462,cat:3,pos:[9,1]},
+
+{block:5,short:"SL1",sold:12,cap:206,cat:3,pos:[1,7]},
+{block:5,short:"SL2",sold:12,cap:300,cat:3,pos:[1,6]},
+{block:5,short:"SL3",sold:12,cap:279,cat:3,pos:[1,5]},
+{block:5,short:"SL4",sold:12,cap:377,cat:3,pos:[1,4]},
+{block:5,short:"SL5",sold:12,cap:332,cat:3,pos:[1,3]},
+{block:5,short:"SL6",sold:12,cap:327,cat:3,pos:[1,2]},
+{block:5,short:"SL7",sold:12,cap:223,cat:3,pos:[1,1]},
+{block:5,short:"SL8",sold:12,cap:59,cat:3,pos:[1,0]},
+
+{block:6,short:"SU1",sold:12,cap:889,cat:3,pos:[0,7]},
+{block:6,short:"SU2",sold:12,cap:445,cat:3,pos:[0,6]},
+{block:6,short:"SU3",sold:12,cap:480,cat:3,pos:[0,5]},
+{block:6,short:"SU4",sold:12,cap:394,cat:3,pos:[0,4]},
+{block:6,short:"SU5",sold:12,cap:476,cat:3,pos:[0,3]},
+{block:6,short:"SU6",sold:12,cap:482,cat:3,pos:[0,2]},
+{block:6,short:"SU7",sold:12,cap:682,cat:3,pos:[0,1]},
+{block:6,short:"SU8",sold:12,cap:192,cat:3,pos:[0,0]},
+
+{block:2,short:"ELS1",sold:12,cap:0,cat:3,pos:[2,7]},
+{block:2,short:"ELS2",sold:12,cap:0,cat:3,pos:[3,7]},
+{block:2,short:"ELS3",sold:12,cap:0,cat:3,pos:[4,7]},
+{block:3,short:"ELS4",sold:12,cap:0,cat:3,pos:[5,7]},
+{block:3,short:"ELN4",sold:12,cap:1343,cat:3,pos:[7,7]},
+{block:3,short:"ELN6",sold:12,cap:1385,cat:3,pos:[9,2]},
+
+{block:4,short:"EU1",sold:12,cap:1188,cat:3,pos:[2,8]},
+{block:4,short:"EU3a",sold:12,cap:503,cat:3,pos:[4,8]},
+{block:4,short:"EU3b",sold:12,cap:676,cat:3,pos:[5,8]},
+{block:4,short:"EU5a",sold:12,cap:675,cat:3,pos:[6,8]},
+{block:4,short:"EU5b",sold:12,cap:521,cat:3,pos:[7,8]},
+{block:4,short:"EU7",sold:12,cap:1194,cat:3,pos:[8,8]},
+
+{block:7,short:"L08",sold:12,cap:680,cat:3,pos:[10,1]},
+{block:7,short:"L09",sold:12,cap:396,cat:3,pos:[10,2]},
+{block:7,short:"L10",sold:12,cap:621,cat:3,pos:[10,3]},
+{block:7,short:"L11",sold:12,cap:825,cat:3,pos:[10,4]},
+{block:7,short:"L12",sold:12,cap:772,cat:3,pos:[10,5]},
+{block:7,short:"L13",sold:12,cap:768,cat:3,pos:[10,6]},
+{block:7,short:"L14",sold:12,cap:798,cat:3,pos:[10,7]},
+{block:7,short:"L15",sold:12,cap:634,cat:3,pos:[10,8]},
+{block:7,short:"L16",sold:12,cap:660,cat:3,pos:[10,9]},
+
+{block:8,short:"U08",sold:12,cap:390,cat:3,pos:[11,0]},
+{block:8,short:"U09",sold:12,cap:456,cat:3,pos:[11,1]},
+{block:8,short:"U10",sold:12,cap:405,cat:3,pos:[11,2]},
+{block:8,short:"U11",sold:12,cap:422,cat:3,pos:[11,3]},
+{block:8,short:"U12",sold:12,cap:421,cat:3,pos:[11,4]},
+{block:8,short:"U13",sold:12,cap:421,cat:3,pos:[11,5]},
+{block:8,short:"U14",sold:12,cap:420,cat:3,pos:[11,6]},
+{block:8,short:"U15",sold:12,cap:423,cat:3,pos:[11,7]},
+{block:8,short:"U16",sold:12,cap:500,cat:3,pos:[11,8]},
+{block:8,short:"U17",sold:12,cap:344,cat:3,pos:[11,9]},
+
+
+
 ]
 setTimeout(function(){writeToFirebase()},2000)
 */
@@ -145,19 +189,44 @@ o=10
 size=30
 for(i=0;i<dataset.length;i++){
 //svg.append('rect').attr('id','feld'+i).attr("x",felder[i][0]*size*1.1).attr("width",size).attr("y",felder[i][1]*size*1.1).attr("height",size).style('fill',"red").style('stroke',"black")
-svg.append('rect').attr('class','feld').attr('id','feld'+i).attr("x",dataset[i].pos[0]*size*1.1+2).attr("width",size)
+gu = svg.append('g')
+let re=gu.append('rect').attr('class','feld').attr('id','feld'+i).attr("x",dataset[i].pos[0]*size*1.1+2).attr("width",size)
 .attr("y",2+dataset[i].pos[1]*size*1.1).attr("height",size).style('fill',"red").style('stroke',"black")
 
-.append('title').text(dataset[i].short + "  sold: " + dataset[i].sold)
+gu.append('title').text(dataset[i].short + "  sold: " + dataset[i].sold + "/"+dataset[i].cap)
+
+gu.append('text').text(dataset[i].short).attr("x",dataset[i].pos[0]*size*1.1+2+size/2).attr("y",2+dataset[i].pos[1]*size*1.1+size/2)
+.style('text-anchor',"middle").style('dominant-baseline','middle')
+.attr('font-size',16-dataset[i].short.length)
+
+//gu.on('mouseover',function(){re.style('fill','red'); let oldcol = re.style.fill})
+//gu.on('mouseout',function(){re.style('fill',oldcol); })
+gu.on("hover",function(){re.style('fill',"green")})
+
+}
+svg.append('rect').attr("x",2*size*1.1+2).attr("width",size*8.7)
+.attr("y",2+2*size*1.1).attr("height",size*6.5).attr('rx',20).style('fill',"#24ad39").style('stroke',"black")
+svg.append('rect').attr("x",3*size*1.1+2).attr("width",size*6.6)
+.attr("y",2+3*size*1.1).attr("height",size*4.4).style("fill","none").style('stroke',"white").style('stroke-width',"3px")
+svg.append('circle').attr("cx",6*size*1.1+2).attr("cy",2+5*size*1.1).attr("r",2).style("fill","white")
+svg.append('circle').attr("cx",6*size*1.1+2).attr("cy",2+5*size*1.1).attr("r",25).style("fill","none").style('stroke',"white")//.style('stroke-width',"3px")
+
 
 var bbox = svg.node().getBBox();
   svg.attr("width", bbox.width+5)
      .attr("height", bbox.height+5);
-}}
+
+
+
+
+
+}
 setTimeout(function(){draw_field()
    
     recolor_svg()
 },1000)
+
+
 // Get the query parameters from the URL
 const queryParams = new URLSearchParams(window.location.search);
 
@@ -169,13 +238,60 @@ function recolor_svg(){
 
 
 for(i=0;i<dataset.length;i++){
-    col = "red"
+    col = "grey"
     if(dataset[i].sold/dataset[i].cap > 0.3) {col = "yellow"}
     if(dataset[i].sold/dataset[i].cap > 0.5) {col = "orange"}
     if(dataset[i].sold/dataset[i].cap > 0.7) {col = "green"}
 d3.select('#feld'+i).style('fill',col)
+d3.select('#feld'+i).select('title').text(dataset[i].short + "  sold: " + dataset[i].sold + "/"+dataset[i].cap)
 }}
 
+
+function draw_linechart(){
+    console.log("12341")
+const margin = {top: 10, right: 30, bottom: 30, left: 20},
+      width = 600 - margin.left - margin.right,
+      height = 250 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+const svg = d3.select("#mitte_unten_div")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",`translate(${margin.left},${margin.top})`);
+
+//Read the data
+data= [{date:2020,value:10},{date:2021,value:11},{date:2022,value:40},{date:2023,value:50},{date:2024,value:51}]
+
+  // Add X axis --> it is a date format
+  const x = d3.scaleTime()
+    .domain(d3.extent(data, d => d.date))
+    .range([ 0, width ]);
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x));
+
+  // Add Y axis
+  const y = d3.scaleLinear()
+    .domain([0, d3.max(data, d => +d.value)])
+    .range([ height, 0 ]);
+    svg.append("g")
+      .call(d3.axisLeft(y));
+
+  // Add the area
+  svg.append("path")
+    .datum(data)
+    .attr("fill", "#cce5df")
+    .attr("stroke", "#69b3a2")
+    .attr("stroke-width", 1.5)
+    .attr("d", d3.area()
+      .x(d => x(d.date))
+      .y0(y(0))
+      .y1(d => y(d.value))
+        )
+    
+}
 function draw_barchart(){
  
 
@@ -189,9 +305,9 @@ bar_data.push(
 
 
   // Set up SVG dimensions
-  var margin = { top: 20, right: 30, bottom: 30, left: 40 };
-  var width = 400 - margin.left - margin.right;
-  var height = 400 - margin.top - margin.bottom;
+  var margin = { top: 10, right: 30, bottom: 30, left: 40 };
+  var width = 450 - margin.left - margin.right;
+  var height = 375 - margin.top - margin.bottom;
 
   // Create SVG container
   d3.select('#bar1').selectAll('*').remove()
@@ -246,7 +362,18 @@ bar_data.push(
 /////__________________________________ 2er barchart
 
 bar_data =[]
+blocks = [
+    {short:"WL",long:"West Lower",sold:0,cap:0},
+    {short:"WV",long:"West View",sold:0,cap:0},
+    {short:"ELN",long:"East Lower North",sold:0,cap:0},
+    {short:"ELS",long:"East Lower South",sold:0,cap:0},
+    {short:"EU",long:"East Upper",sold:0,cap:0},
+    {short:"SL",long:"Shed Lower",sold:0,cap:0},
+    {short:"SU",long:"Shed Upper",sold:0,cap:0},
+    {short:"MHL",long:"M Harding Lower",sold:0,cap:0},
+    {short:"MHU",long:"M Harding Upper",sold:0,cap:0},
 
+]
 for (i=0;i<dataset.length;i++){
 blocks[dataset[i].block].sold += dataset[i].sold
 blocks[dataset[i].block].cap += dataset[i].cap
@@ -315,15 +442,15 @@ d3.select('#bar2').selectAll('*').remove()
 
 }
 function draw_pie(){
-    radius = 100
-    d3.select('#pie1').style('height',2*radius+"px")
+    radius = 110
+    d3.select('#pie1').style('height',2*radius+"px").style('width',2*radius+"px")
     
     svg2= d3.select('#pie1')
    svg2.selectAll('*').remove()
     svg2=svg2.append("g")
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
-    d3.select('#pie2').style('height',2*radius+"px")
+    d3.select('#pie2').style('height',2*radius+"px").style('width',2*radius+"px")
     
     svg3= d3.select('#pie2')
     svg3.selectAll('*').remove()
@@ -331,7 +458,7 @@ function draw_pie(){
     .attr("transform", "translate(" + radius + "," + radius + ")");
 
     pie_data = [
-    { label: "PREM", sold: 0,cap:0 ,col:"#DAF7A6"},
+    { label: "PREM", sold: 0,cap:0,col:"#DAF7A6"},
     { label: "CAT 1", sold:0,cap:0,col:"#FFC300" },
     { label: "CAT 2", sold:0,cap:0,col:"#FF5733" },
     { label: "CAT 3", sold:0,cap:0,col:"#C70039" },
@@ -394,6 +521,26 @@ function draw_pie(){
     .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
     .attr("text-anchor", "middle")
     .text(function(d) { return d.data.label; });
+
+
+
+
+
+
+    
+
+var bbox = svg2.node().getBBox();
+  svg2.attr("width", bbox.width+5)
+     .attr("height", bbox.height+5);
+
+
+
+     var bbox = svg3.node().getBBox();
+  svg3.attr("width", bbox.width+5)
+     .attr("height", bbox.height+5);
+
+
+
 }
 
 
@@ -406,12 +553,12 @@ function recolor(data){
     recolor_svg()
     draw_pie()
     draw_barchart()
-    
+    draw_linechart()
     tabe = d3.select('#link_div').append('table')
    // database.ref('Stages').set(data);
     tro=  tabe.append('tr')
-    tro.append('th').text("Block")
-    tro.append('th').text("Group")
+    tro.append('th').text("block")
+    tro.append('th').text("group")
     tro.append('th').text("capacity")
     tro.append('th').text("sold")
        tro.append('th').text("category")
